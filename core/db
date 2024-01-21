@@ -1,20 +1,14 @@
 {
   "todos": [
     {
-      "id": "5c05dd1e-ac95-41a1-b4ae-aab5463b1ba1",
-      "date": "2023-08-13T21:19:37.411Z",
+      "id": "995b2706-0775-4602-aa99-4f6ead17e6b5",
+      "date": "2024-01-21T02:19:06.596Z",
       "content": "Primeira TODO Waaaa",
       "done": false
     },
     {
-      "id": "b76fe00a-57fb-49eb-82df-8787d12b50dc",
-      "date": "2023-08-13T21:19:37.411Z",
-      "content": "Segunda TODO Pina quer mel",
-      "done": false
-    },
-    {
-      "id": "53932dee-f705-4c34-9f29-9846f1ab107f",
-      "date": "2023-08-13T21:19:37.412Z",
+      "id": "94d450e0-fbf1-4069-9797-c0aab0c216eb",
+      "date": "2024-01-21T02:19:06.597Z",
       "content": "Atualizada!",
       "done": false
     }
