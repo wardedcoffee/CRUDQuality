@@ -4,7 +4,7 @@ import { v4 as uuid } from "uuid";
 // const fs = require("fs"); - CommonJS
 const DB_FILE_PATH = "./core/db";
 
-console.log("[CRUD]");
+//console.log("[CRUD]");
 
 type UUID = string;
 interface Todo {
@@ -40,7 +40,7 @@ function create(content: string): Todo {
   return todo;
 }
 
-function read(): Array<Todo> {
+export function read(): Array<Todo> {
   const dbString = fs.readFileSync(DB_FILE_PATH, "utf-8");
   const db = JSON.parse(dbString || "{}");
   if (!db.todos) {
@@ -102,17 +102,17 @@ function CLEAR_DB() {
 }
 
 // SIMULATION
-CLEAR_DB();
-create("Primeira TODO Waaaa");
-const secondTodo = create("Segunda TODO");
-deleteById(secondTodo.id);
-const thirdTodo = create("Terceira TODO");
-//const thirdTodo = create("Segunda TODO Pina quer mel");
-// update(thirdTodo.id, {
-//     content: "Atualizada!",
-//     done: true,
-// });
-updateContentById(thirdTodo.id, "Atualizada!");
-const todos = read();
-console.log(todos);
-console.log(todos.length);
+// CLEAR_DB();
+// create("Primeira TODO Waaaa");
+// const secondTodo = create("Segunda TODO");
+// deleteById(secondTodo.id);
+// const thirdTodo = create("Terceira TODO");
+// //const thirdTodo = create("Segunda TODO Pina quer mel");
+// // update(thirdTodo.id, {
+// //     content: "Atualizada!",
+// //     done: true,
+// // });
+// updateContentById(thirdTodo.id, "Atualizada!");
+// const todos = read();
+// console.log(todos);
+// console.log(todos.length);
