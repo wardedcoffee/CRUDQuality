@@ -1,24 +1,24 @@
 /* eslint-disable react/react-in-jsx-scope */
+import { todoController } from "@ui/controller/todo";
 import { GlobalStyles } from "@ui/theme/GlobalStyles";
+import React from "react";
 
 const bg = "https://mariosouto.com/cursos/crudcomqualidade/bg";
 
-const todos = [
-  {
-    id: "2bb2bdaa-ccc1-4363-b7f7-8a912c62b4fe",
-    date: "2024-01-28T04:11:38.311Z",
-    content: "Primeira TODO Waaaa",
-    done: false,
-  },
-  {
-    id: "65ccbeed-cff4-4797-9068-b7245db744c5",
-    date: "2024-01-28T04:11:38.312Z",
-    content: "Atualizada!",
-    done: false,
-  },
-];
+interface HomeTodo {
+  id: string;
+  content: string;
+}
 
 function HomePage() {
+  const [todos, setTodos] = React.useState<HomeTodo[]>([]);
+
+  React.useEffect(() => {
+    todoController.get().then((todos) => {
+      setTodos(todos);
+    });
+  }, []);
+
   console.log("todos", todos);
   return (
     <main>
