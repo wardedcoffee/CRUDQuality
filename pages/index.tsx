@@ -11,22 +11,34 @@ interface HomeTodo {
 }
 
 function HomePage() {
+  const [initialLoadingComplete, setInitialLoadComplete] = React.useState(false);
   const [totalPages, setTotalPages] = React.useState(0);
   const [page, setPage] = React.useState(1);
+  const [isLoading, setIsLoading] = React.useState(true);
   const [todos, setTodos] = React.useState<HomeTodo[]>([]);
   const hasMorePages = totalPages > page;
+  const hasNoTodos = todos.length === 0 && !isLoading;
 
-  //Load infos onlod
+  //Load infos onload
+  //React.usEffect(() => {}, [])
+  // Roda só no LOAD da página
+  // Roda no LOAD do componente
   React.useEffect(() => {
-    todoController.get({ page }).then(({ todos, pages }) => {
-      setTodos((oldTodos) => {
-        return [...oldTodos, ...todos];
+    setInitialLoadComplete(true);
+    if(!initialLoadingComplete) {
+      todoController
+      .get({ page })
+      .then(({ todos, pages }) => {
+        setTodos(todos);
+        setTotalPages(pages);
+      })
+      .finally(() => {
+        setIsLoading(false);
       });
-      setTotalPages(pages);
-    });
-  }, [page]);
+    }
+  }, []);
 
-  console.log("todos", todos);
+  //console.log("todos", todos);
   return (
     <main>
       <GlobalStyles themeName="red" />
@@ -79,21 +91,46 @@ function HomePage() {
               );
             })}
 
-            {/* <tr>
-              <td colSpan={4} align="center" style={{ textAlign: "center" }}>
-                Carregando...
-              </td>
-            </tr> */}
-
-            {/* <tr>
-              <td colSpan={4} align="center">
-                Nenhum item encontrado
-              </td>
-            </tr> */}
-            {hasMorePages && (
+            {isLoading && (
               <tr>
                 <td colSpan={4} align="center" style={{ textAlign: "center" }}>
-                  <button data-type="load-more" onClick={() => setPage(page + 1)}>
+                  Carregando...
+                </td>
+              </tr>
+            )}
+
+            {hasNoTodos && (
+              <tr>
+                <td colSpan={4} align="center">
+                  Nenhum item encontrado
+                </td>
+              </tr>
+            )}
+
+            {hasMorePages && (
+              <tr>
+                <td colSpan={4} align="center" style={{ textAlign:
+                "center" }}>
+                  <button 
+                    data-type="load-more"
+                    onClick={() => {
+                      setIsLoading(true);
+                      const nextPage = page + 1;
+                      setPage(nextPage);
+
+                      todoController
+                      .get({ page: nextPage })
+                      .then(({ todos, pages }) => {
+                        setTodos((oldTodos) => {
+                          return [...oldTodos, ...todos];
+                        });
+                        setTotalPages(pages);
+                      })
+                      .finally(() => {
+                        setIsLoading(false);
+                      });
+                  }}
+                  >
                     Página {page}, Carregar mais{" "}
                     <span
                       style={{
