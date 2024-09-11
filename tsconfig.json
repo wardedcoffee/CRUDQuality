@@ -23,6 +23,9 @@
       "@ui/*": [
         "src/ui/*"
       ],
+      "@ui/schema/todo": [
+        "src/ui/schema/todo.ts"
+      ],
       "@db-crud-todo": [
         "core/crud.ts"
       ],
